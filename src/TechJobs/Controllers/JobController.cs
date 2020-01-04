@@ -23,16 +23,7 @@ namespace TechJobs.Controllers
         {
             // TODO #1 - get the Job with the given ID and pass it into the view]
 
-            /*JobFieldsViewModel jobFieldsViewModel = new JobFieldsViewModel();
-            TechJobs.Models.Job jobInfo = jobData.Find(id); //Test using ../Job?id=x
-
-            return View(jobInfo, jobFieldsViewModel); */
-
-           
             SearchJobsViewModel jobsViewModel = new SearchJobsViewModel();
-            //// Find the job with id 42
-            //Job someJob = jobData.Find(42);
-            //jobsViewModel.Jobs.Add(jobData.Find(id));//coming up as null even when hardcoding an int
             
             TechJobs.Models.Job jobInfo = new TechJobs.Models.Job(); //Unclear if this is necessary.
             jobInfo = jobData.Find(id);
@@ -45,6 +36,11 @@ namespace TechJobs.Controllers
             return View(jobsViewModel); 
 
         }
+
+        //private void JobController()
+        //{
+          //  throw new NotImplementedException();
+        //}
 
         private IActionResult View(Job jobInfo, JobFieldsViewModel jobFieldsViewModel)
         {
@@ -64,7 +60,46 @@ namespace TechJobs.Controllers
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
 
-            return View(newJobViewModel);
+            //Check that Name isn't blank
+            String aName = newJobViewModel.Name;
+
+            if (aName != null)
+            {
+
+                Employer anEmployer = jobData.Employers.Find(newJobViewModel.EmployerID);
+                Location aLocation = jobData.Locations.Find(newJobViewModel.LocationID);
+                CoreCompetency aCoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetenciesID);
+                PositionType aPosition = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID);
+
+                //Create the job and set all properties
+                Job newJob = new Job
+                {
+
+                    // set properties within braces
+                    Name = aName,
+                    Employer = anEmployer,
+                    Location = aLocation,
+                    CoreCompetency = aCoreCompetency,
+                    PositionType = aPosition
+
+                };
+
+                //Put it in the database
+                jobData.Jobs.Add(newJob); //Note: Doesn't actually update the job_data.csv file, unclear if required for assignment
+
+                //NOTE: Doesn't work more than one time during same session. Perhaps because not updating the actual CSV?
+
+
+                // "...redirect to the Job detail (Index) action/view for the new Job."
+
+                int lastitem = jobData.Jobs.Count; //Get the ID for the last item added
+
+                return Redirect("/Job?id=" + lastitem);
+
+            }
+            
+            return View(newJobViewModel); //The template will display name is a required field.
+
         }
     }
 
