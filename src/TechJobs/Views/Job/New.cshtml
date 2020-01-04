@@ -17,10 +17,20 @@
     }
 
     <div class="form-group">
-        <label asp-for="Locations"></label>
-        <select asp-for="Locations" asp-items="Model.Locations"></select>
+        <label asp-for="LocationID"></label>
+        <select asp-for="LocationID" asp-items="Model.Locations"></select>
     </div>
 
+
+    <div class="form-group">
+        <label asp-for="CoreCompetenciesID"></label>
+        <select asp-for="CoreCompetenciesID" asp-items="Model.CoreCompetencies"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PositionTypeID"></label>
+        <select asp-for="PositionTypeID" asp-items="Model.PositionTypes"></select>
+    </div>
 
     <input type="submit" value="Add Job" />
 </form>
