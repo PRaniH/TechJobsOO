@@ -12,9 +12,15 @@
         <select asp-for="EmployerID" asp-items="Model.Employers"></select>
     </div>
 
-    @{ 
+    @{
         // TODO #5 - Create <select> dropdowns for other job fields (outside of this @{ } block)
     }
+
+    <div class="form-group">
+        <label asp-for="Locations"></label>
+        <select asp-for="Locations" asp-items="Model.Locations"></select>
+    </div>
+
 
     <input type="submit" value="Add Job" />
 </form>

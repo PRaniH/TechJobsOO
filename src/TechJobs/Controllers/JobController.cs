@@ -34,9 +34,9 @@ namespace TechJobs.Controllers
             //Job someJob = jobData.Find(42);
             //jobsViewModel.Jobs.Add(jobData.Find(id));//coming up as null even when hardcoding an int
             
-            TechJobs.Models.Job jobInfo = new TechJobs.Models.Job();
+            TechJobs.Models.Job jobInfo = new TechJobs.Models.Job(); //Unclear if this is necessary.
             jobInfo = jobData.Find(id);
-            jobsViewModel.Jobs = new List(); //This appears to solve the null issue
+            jobsViewModel.Jobs = new List(); //Initialize the Jobs list. This appears to solve the null issue. 
             jobsViewModel.Jobs.Add(jobInfo); //System.NullReferenceException: 'Object reference not set to an instance of an object.'
                                             //TechJobs.ViewModels.SearchJobsViewModel.Jobs.get returned null.
             jobsViewModel.Title =  "Job";

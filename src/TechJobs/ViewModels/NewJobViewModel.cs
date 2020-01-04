@@ -19,7 +19,11 @@ namespace TechJobs.ViewModels
         // with correct validation attributes and display names.
 
         public List<SelectListItem> Employers { get; set; } = new List<SelectListItem>();
+        
+        [Required]
+        [Display(Name = "Location")]
         public List<SelectListItem> Locations { get; set; } = new List<SelectListItem>();
+
         public List<SelectListItem> CoreCompetencies { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PositionTypes { get; set; } = new List<SelectListItem>();
 
@@ -38,6 +42,15 @@ namespace TechJobs.ViewModels
 
             // TODO #4 - populate the other List<SelectListItem> 
             // collections needed in the view
+
+            foreach (Location field in jobData.Locations.ToList())
+            {
+                Locations.Add(new SelectListItem
+                {
+                    Value = field.ID.ToString(),
+                    Text = field.Value
+                });
+            }
 
         }
     }
