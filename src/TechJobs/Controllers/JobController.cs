@@ -5,6 +5,8 @@ using TechJobs.Data;
 using TechJobs.Models;
 using TechJobs.ViewModels;
 
+//using System.IO; //Added to append to the CSV with new jobs
+
 namespace TechJobs.Controllers
 {
     public class JobController : Controller
@@ -84,10 +86,15 @@ namespace TechJobs.Controllers
 
                 };
 
-                //Put it in the database
-                jobData.Jobs.Add(newJob); //Note: Doesn't actually update the job_data.csv file, unclear if required for assignment
+                jobData.Jobs.Add(newJob);
 
-                //NOTE: Doesn't work more than one time during same session. Perhaps because not updating the actual CSV?
+                //Update the CSV file
+                string appendtext = Environment.NewLine + newJob.Name.ToString() + "," + newJob.Employer.ToString() + "," + newJob.CoreCompetency.ToString() + "," + newJob.PositionType.ToString();
+
+                System.IO.File.AppendAllText("Data/job_data.csv", appendtext);
+
+                //NOTE: This appears to cause the app. to have issues after the first one is added. New throws error when it goes to Find() above.
+                //Also when launching the app. from scratch after adding items to the CSV, it runs into errors.
 
 
                 // "...redirect to the Job detail (Index) action/view for the new Job."
@@ -98,7 +105,7 @@ namespace TechJobs.Controllers
 
             }
             
-            return View(newJobViewModel); //The template will display name is a required field.
+            return View(newJobViewModel); //The template will display name is a required field if not filled out.
 
         }
     }
