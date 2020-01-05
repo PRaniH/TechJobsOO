@@ -89,9 +89,9 @@ namespace TechJobs.Controllers
                 jobData.Jobs.Add(newJob);
 
                 //Update the CSV file
-                string appendtext = Environment.NewLine + newJob.Name.ToString() + "," + newJob.Employer.ToString() + "," + newJob.CoreCompetency.ToString() + "," + newJob.PositionType.ToString();
+                //string appendtext = Environment.NewLine + newJob.Name.ToString() + "," + newJob.Employer.ToString() + "," + newJob.CoreCompetency.ToString() + "," + newJob.PositionType.ToString();
 
-                System.IO.File.AppendAllText("Data/job_data.csv", appendtext);
+                //System.IO.File.AppendAllText("Data/job_data.csv", appendtext);
 
                 //NOTE: This appears to cause the app. to have issues after the first one is added. New throws error when it goes to Find() above.
                 //Also when launching the app. from scratch after adding items to the CSV, it runs into errors.
